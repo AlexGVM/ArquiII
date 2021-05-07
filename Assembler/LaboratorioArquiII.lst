@@ -1,0 +1,161 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            ;Se crea una varible que se llama dato
+0002    0000            ; el 0x21 es la posicion en donde se almacena
+0003    0000            ; 0x21 proposito general
+0004    0000            
+0005    0000            ;CONFIGURACION
+0006    0000            DATO EQU 0x21
+0007    0000            NUM1 EQU 0x21
+0008    0000            CONTADOR EQU 0X21
+0009    0000            ;INICIO DE PROGRAMA
+0010    0000            	ORG	0X00
+0011    0000    2801    	GOTO	START
+0012    0001            ;CODIGO
+0013    0001            START
+0014    0001    1683    	BSF	STATUS,5
+0015    0002    0186    	CLRF	TRISB
+0016    0003    0188    	CLRF	TRISD
+0017    0004    1283    	BCF	STATUS, RP0
+0018    0005    1283    	BCF	STATUS,5
+0019    0006    3000    	MOVLW	0X00
+0020    0007    0086    	MOVWF	PORTB
+0021    0008    0088    	MOVWF 	PORTD
+0022    0009    280A    	GOTO	MENU
+0023    000A            MENU
+0024    000A    1B87    	BTFSC	PORTC, 7 ;RD7
+0025    000B    2818    	GOTO	IZQUIERDO ;1
+0026    000C    2834    	GOTO	DERECHO ;0
+0027    000D            SIGUIENTE
+0028    000D    1A87    	BTFSC	PORTC,5
+0029    000E    280A    	GOTO	MENU
+0030    000F    284D    	GOTO	INCREMENTA
+0031    0010            MV
+0032    0010    0821    	MOVF	DATO, W
+0033    0011    0086    	MOVWF	PORTB
+0034    0012    0008    	RETURN
+0035    0013            
+0036    0013            MV1
+0037    0013    0821    	MOVF	NUM1, W
+0038    0014    0088    	MOVWF	PORTD
+0039    0015    1A87    	BTFSC	PORTC, 5
+0040    0016    280A    	GOTO	MENU
+0041    0017    0008    	RETURN
+0042    0018            IZQUIERDO
+0043    0018    30FF    	MOVLW	B'11111111'
+0044    0019    00A1    	MOVWF	DATO
+0045    001A    2010    	CALL	MV
+0046    001B            
+0047    001B    30FE    	MOVLW	B'11111110'
+0048    001C    00A1    	MOVWF	DATO
+0049    001D    2010    	CALL	MV
+0050    001E            
+0051    001E    30FD    	MOVLW	B'11111101'
+0052    001F    00A1    	MOVWF	DATO
+0053    0020    2010    	CALL	MV
+0054    0021            
+0055    0021    30FB    	MOVLW	B'11111011'
+0056    0022    00A1    	MOVWF	DATO
+0057    0023    2010    	CALL	MV
+0058    0024            
+0059    0024    30F7    	MOVLW	B'11110111'
+0060    0025    00A1    	MOVWF	DATO
+0061    0026    2010    	CALL	MV
+0062    0027            
+0063    0027    30EF    	MOVLW	B'11101111'
+0064    0028    00A1    	MOVWF	DATO
+0065    0029    2010    	CALL	MV
+0066    002A            
+0067    002A    30DF    	MOVLW	B'11011111'
+0068    002B    00A1    	MOVWF	DATO
+0069    002C    2010    	CALL	MV
+0070    002D            
+0071    002D    30BF    	MOVLW	B'10111111'
+0072    002E    00A1    	MOVWF	DATO
+0073    002F    2010    	CALL	MV
+0074    0030            
+0075    0030    307F    	MOVLW	B'01111111'
+0076    0031    00A1    	MOVWF	DATO
+0077    0032    2010    	CALL	MV
+0078    0033    280D    	GOTO	SIGUIENTE
+0079    0034            DERECHO
+0080    0034    307F    	MOVLW	B'01111111'
+0081    0035    00A1    	MOVWF	DATO
+0082    0036    2010    	CALL	MV
+0083    0037            
+0084    0037    30BF    	MOVLW	B'10111111'
+0085    0038    00A1    	MOVWF	DATO
+0086    0039    2010    	CALL	MV
+0087    003A            
+0088    003A    30DF    	MOVLW	B'11011111'
+0089    003B    00A1    	MOVWF	DATO
+0090    003C    2010    	CALL	MV
+0091    003D            
+0092    003D    30EF    	MOVLW	B'11101111'
+0093    003E    00A1    	MOVWF	DATO
+0094    003F    2010    	CALL	MV
+0095    0040            
+0096    0040    30F7    	MOVLW	B'11110111'
+0097    0041    00A1    	MOVWF	DATO
+0098    0042    2010    	CALL	MV
+0099    0043            
+0100    0043    30FB    	MOVLW	B'11111011'
+0101    0044    00A1    	MOVWF	DATO
+0102    0045    2010    	CALL	MV
+0103    0046            
+0104    0046    30FD    	MOVLW	B'11111101'
+0105    0047    00A1    	MOVWF	DATO
+0106    0048    2010    	CALL	MV
+0107    0049            
+0108    0049    30FE    	MOVLW	B'11111110'
+0109    004A    00A1    	MOVWF	DATO
+0110    004B    2010    	CALL	MV
+0111    004C    280D    	GOTO 	SIGUIENTE
+0112    004D            INCREMENTA
+0113    004D    307F    	MOVLW	B'1111111'
+0114    004E    00A1    	MOVWF	NUM1
+0115    004F    2013    	CALL	MV1
+0116    0050            
+0117    0050    3030    	MOVLW	B'0110000'
+0118    0051    00A1    	MOVWF	NUM1
+0119    0052    2013    	CALL	MV1
+0120    0053            
+0121    0053    306D    	MOVLW	B'1101101'
+0122    0054    00A1    	MOVWF	NUM1
+0123    0055    2013    	CALL	MV1
+0124    0056            
+0125    0056    3079    	MOVLW	B'1111001'
+0126    0057    00A1    	MOVWF	NUM1
+0127    0058    2013    	CALL	MV1
+0128    0059            
+0129    0059    3033    	MOVLW	B'0110011'
+0130    005A    00A1    	MOVWF	NUM1
+0131    005B    2013    	CALL	MV1
+0132    005C            
+0133    005C    305B    	MOVLW	B'1011011'
+0134    005D    00A1    	MOVWF	NUM1
+0135    005E    2013    	CALL	MV1
+0136    005F            
+0137    005F    305F    	MOVLW	B'1011111'
+0138    0060    00A1    	MOVWF	NUM1
+0139    0061    2013    	CALL	MV1
+0140    0062            
+0141    0062    3070    	MOVLW	B'1110000'
+0142    0063    00A1    	MOVWF	NUM1
+0143    0064    2013    	CALL	MV1
+0144    0065            
+0145    0065    307F    	MOVLW	B'1111111'
+0146    0066    00A1    	MOVWF	NUM1
+0147    0067    2013    	CALL	MV1
+0148    0068            
+0149    0068    307B    	MOVLW	B'1111011'
+0150    0069    00A1    	MOVWF	NUM1
+0151    006A    2013    	CALL	MV1
+0152    006B            
+0153    006B    280A    	GOTO 	MENU
+0154    006C            
+0155    006C            END
+---------------------------------------------
+Number of errors = 0

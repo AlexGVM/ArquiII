@@ -1,0 +1,30 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            ;Configuration
+0002    0000            
+0003    0000            ;Inicio de programa
+0004    0000            	ORG	0X00
+0005    0000    2801    	GOTO 	START ;etiqueta de inicio
+0006    0001            ;Codigo
+0007    0001            START
+0008    0001    1683    	BSF	STATUS,5 ;BSF en el estado 5 del status para ir al banco 1
+0009    0002    0186    	CLRF	TRISB ;si se coloca en 0 sera salida, 1 es entrada
+0010    0003    1283    	BCF	STATUS, RP0 ;este es por nombre
+0011    0004    1283    	BCF 	STATUS,5 ;RP0 y 5 es lo mismo
+0012    0005    3000    	MOVLW	0X00 ; al registro W un numero en hexadecimal
+0013    0006    0086    	MOVWF	PORTB	;a un file que es el puerto B F(File)
+0014    0007    2808    	GOTO 	INC ;incremente lo que se tiene en el puerto
+0015    0008            
+0016    0008            INC
+0017    0008    3E01    	ADDLW 	0x01 ;se lo suma
+0018    0009    0086    	MOVWF	PORTB	;lo mueve a puerto F
+0019    000A    2808    	GOTO	INC
+0020    000B            END
+0021    000B            ;PIC se tiene que tener siempre un ciclo infinito
+0022    000B            ;PORT en el banco 0
+0023    000B            
+0024    000B            
+---------------------------------------------
+Number of errors = 0

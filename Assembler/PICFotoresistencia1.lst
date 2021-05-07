@@ -1,0 +1,41 @@
+---------------------------------------------
+PIC ASSEMBLER LISTING
+Line    Address Opcode  Instruction
+---------------------------------------------
+0001    0000            ;CONFIGURACION INICIAL
+0002    0000                ORG 0X00
+0003    0000    2801        GOTO START
+0004    0001            
+0005    0001            START
+0006    0001    1303        bcf STATUS,RP1
+0007    0002    3041        movlw b'01000001'
+0008    0003    009F        movwf ADCON0
+0009    0004    1683        bsf STATUS,RP0 ;banco 1
+0010    0005    1303        bcf STATUS,RP1
+0011    0006    0185        clrf TRISA ;puertos de salida
+0012    0007    0186        clrf TRISB
+0013    0008    0187        clrf TRISC
+0014    0009    0188        clrf TRISD
+0015    000A    0189        clrf TRISE
+0016    000B    3007        movlw b'00000111'
+0017    000C    0081        movwf OPTION_REG ;TMR0 preescaler, 1:156
+0018    000D    300E        movlw b'00001110' ;Puerto A/D
+0019    000E    009F        movwf ADCON1
+0020    000F    1405        bsf TRISA,0 ;RA0 linea de entrada para el ADC
+0021    0010    1283        bcf STATUS,RP0 ;banco 0
+0022    0011    1303        bcf STATUS,RP1
+0023    0012    0187        clrf PORTC ;limpieza
+0024    0013            loop
+0025    0013    150B        BSF INTCON,T0IF
+0026    0014    2813        goto loop ;Esperar que el timer0 desborde
+0027    0015    110B        bcf INTCON,T0IF ;Limpiar el indicador de desborde
+0028    0016    151F        bsf ADCON0,GO ;Empezar la conversion A/D
+0029    0017            wait
+0030    0017    191F        btfsc ADCON0,GO ;la conversion esta completa? (=0)
+0031    0018    2817        goto wait ;si no esperar
+0032    0019    081E        movf ADRESH,W ;Si W=ADRESH
+0033    001A    0087        movwf PORTC ;resultado en PORTC
+0034    001B    2813        goto loop ;ir a loop
+0035    001C            END
+---------------------------------------------
+Number of errors = 0

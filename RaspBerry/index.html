@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+	const solicitud = () => {
+	var input = document.getElementById("entrada").value;
+	var endpoint = "https://w95davn4k4.execute-api.us-east-2.amazonaws.com/Fase1/?pulso=";
+	var url = endpoint.concat(input);
+	console.log(url);
+    fetch(url)
+      .then((response) => response.text())
+      .then((json) => {
+        console.log(json);
+		document.getElementById("respuesta").innerHTML = json;
+      });
+	};
+	
+	const solicitud2 = () => {
+	var url = "https://w95davn4k4.execute-api.us-east-2.amazonaws.com/Fase1/?pulso=w";
+	console.log(url);
+    fetch(url)
+      .then((response) => response.text())
+      .then((json) => {
+        console.log(json);
+		document.getElementById("respuesta2").innerHTML = json;
+      });
+	};
+	
+</script> 
+</head>
+<body>
+	<center>
+	<div class="container-fluid">
+		<h1 class="text-center py-3">Examen Final</h1>
+		
+	</div>
+
+	<style>
+	body {
+		background-image: linear-gradient(to right,white,green);
+	}
+	</style>
+
+	<div class="container-fluid">
+		<div class="container py-5">
+			<form>
+				<label>Entrada</label><br>
+				<input type="text" id="entrada" name="entrada">
+			</form><br>
+			<button type="submit" onclick="solicitud()">Enviar</button>
+			<button onClick="window.location.reload();">Refresh Page</button>
+			<div id="content"><br>
+				<label id="respuesta">Ingresado: </label>
+			</div>
+			<button type="submit" onclick="solicitud2()">Actualizar</button>
+			<div id="content"><br>
+				<label> Ingresado desde Raspberry: </label>
+				<label id = "respuesta2"></label>
+			</div>
+		</div>
+	</div>
+	</center>
+</body>
+</html>
